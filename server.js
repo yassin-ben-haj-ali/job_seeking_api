@@ -5,7 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { config } = require('dotenv');
 const mongoose=require('mongoose')
-
+const logger=require('./utils/logger')
 
 const app = express();
 
@@ -33,11 +33,11 @@ const server = http.createServer(app);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('✅ Connected to DB');
+    logger.info('✅ Connected to DB');
     server.listen(PORT, () => {
-      console.log(`🚀 Server is running on port ${PORT}`);
+      logger.info(`🚀 Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error(err.message);
+    logger.error(err.message);
   });
