@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const { config } = require('dotenv');
 const mongoose=require('mongoose')
 const logger=require('./utils/logger')
+const indexRouter=require('./routes');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/api', indexRouter);
 
 const PORT = process.env.PORT || 5000;
 
