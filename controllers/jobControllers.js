@@ -10,7 +10,25 @@ const getAllJobs = async (req, res) => {
     return res.status(201).json({ success: true, jobs, count });
 };
 
+const getMyJobs = async (req, res) => {
+    const jobs = await JobService.getMyJobs(req.user._id);
+    return res.status(201).json({ success: true, jobs });
+};
+
+const deleteJob = async (req, res) => {
+    const job = await JobService.deleteJob(req.params.id);
+    return res.status(201).json({ success: true, job });
+};
+
+const getSingleJob = async (req, res) => {
+    const job = await JobService.getSingleJob(req.params.id);
+    return res.status(201).json({ success: true, job });
+};
+
 module.exports = {
     createJob,
-    getAllJobs
+    getAllJobs,
+    getMyJobs,
+    deleteJob,
+    getSingleJob
 }

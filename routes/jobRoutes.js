@@ -11,6 +11,10 @@ router.get('/', (req, res) => {
 });
 router.post('/', isAuthenticated, isAuthorized("Employer"), catchMiddleware(jobControllers.createJob));
 router.get('/all', catchMiddleware(jobControllers.getAllJobs));
+router.get('/myjobs', isAuthenticated, isAuthorized("Employer"), catchMiddleware(jobControllers.getMyJobs));
+router.delete('/:id', isAuthenticated, isAuthorized("Employer"), catchMiddleware(jobControllers.deleteJob));
+router.get("/:id",isAuthenticated,catchMiddleware(jobControllers.getSingleJob));
+
 
 
 
