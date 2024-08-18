@@ -41,10 +41,33 @@ const createJob = async (body, user) => {
         postedBy
     })
 
-
+     return job
 
 }
 
-module.exports={
-    createJob
+
+const getAllJobs = async (keyword = null) => {
+    const { city, niche, searchKeyword } = keyword;
+    const query = {}
+    if (city) {
+        query.location = city
+    }
+    if (niche) {
+        query.jobNiche = niche
+    }
+    if (searchKeyword) {
+        const regexPattern = new RegExp(searchKeyword, 'i');
+        query.$or = [
+            { title: regexPattern },
+            { companyName: regexPattern },
+            { introduction: regexPattern }
+        ]
+    }
+    const jobs = await Job.find(query)
+    return { jobs, count: jobs.length }
+}
+
+module.exports = {
+    createJob,
+    getAllJobs
 }

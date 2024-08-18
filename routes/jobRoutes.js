@@ -10,6 +10,8 @@ router.get('/', (req, res) => {
     res.send('respond with a resource');
 });
 router.post('/', isAuthenticated, isAuthorized("Employer"), catchMiddleware(jobControllers.createJob));
+router.get('/all', catchMiddleware(jobControllers.getAllJobs));
+
 
 
 

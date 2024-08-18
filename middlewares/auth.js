@@ -15,10 +15,10 @@ const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
 
 const isAuthorized = (...roles) =>
     catchAsyncErrors(async (req, res, next) => {
-        if (roles.includes(req.user.role)) {
-            next()
+        if (!roles.includes(req.user.role)) {
+            throw new AuthorizationError(`${req.user.role} not allowed to access this resource.`)
         }
-        throw new AuthorizationError(`${req.user.role} not allowed to access this resource.`)
+        next()
     })
 
 
