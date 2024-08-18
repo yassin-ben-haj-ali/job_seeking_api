@@ -40,8 +40,8 @@ const jobSchema = new mongoose.Schema({
         default: false
     },
     personalWebsite: {
-        type: String,
-        required: true
+        title: String,
+        url: String
     },
     jobNiche: {
         type: String,
