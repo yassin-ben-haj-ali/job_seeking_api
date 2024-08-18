@@ -13,8 +13,13 @@ const updateProfile = async (req, res) => {
     return res.status(201).json({ success: true, message: "profile updated.", user });
 };
 
+const updatePassword = async (req, res) => {
+    const { token, options } = await UserService.updatePassword(req.user._id,req.body)
+    return res.status(201).cookie("token", token, options).json({ success: true, message:"password updated." });
+};
 
 module.exports = {
     getUser,
-    updateProfile
+    updateProfile,
+    updatePassword
 }

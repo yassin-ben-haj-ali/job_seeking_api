@@ -11,6 +11,8 @@ router.get('/', (req, res) => {
 });
 router.get('/me',isAuthenticated ,catchMiddleware(userControllers.getUser));
 router.put('/',isAuthenticated,catchMiddleware(userControllers.updateProfile));
+router.put('/password',isAuthenticated,catchMiddleware(userControllers.updatePassword));
+
 
 
 
