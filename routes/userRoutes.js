@@ -1,7 +1,7 @@
 const express = require('express');
 const catchMiddleware = require('../middlewares/catchAsyncErrors');
 const userControllers = require('../controllers/userControllers');
-const isAuthenticated = require('../middlewares/auth');
+const {isAuthenticated} = require('../middlewares/auth');
 
 
 const router = express.Router();

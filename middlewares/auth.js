@@ -13,4 +13,16 @@ const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
     next()
 })
 
-module.exports = isAuthenticated
+const isAuthorized = (...roles) =>
+    catchAsyncErrors(async (req, res, next) => {
+        if (roles.includes(req.user.role)) {
+            next()
+        }
+        throw new AuthorizationError(`${req.user.role} not allowed to access this resource.`)
+    })
+
+
+module.exports = {
+    isAuthenticated,
+    isAuthorized
+}
