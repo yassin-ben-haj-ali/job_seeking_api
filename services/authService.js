@@ -2,7 +2,7 @@ const User = require("../models/userSchema");
 const { BadRequestError, AlreadyExistError, NotFoundError, AuthorizationError } = require("../utils/appErrors");
 const sendToken = require("../utils/jwToken");
 
-const register = async (body) => {
+const register = async (body, resume = null) => {
 
     const { name, email, phone, address, password, role, firstNiche, secondNiche, thirdNiche, coverLetter } = body;
 
@@ -16,7 +16,7 @@ const register = async (body) => {
     if (exist) {
         throw new AlreadyExistError("Email is already registered.")
     }
-    userData = {
+    const userData = {
         name,
         email,
         phone,
@@ -25,6 +25,9 @@ const register = async (body) => {
         role,
         niches: { firstNiche, secondNiche, thirdNiche },
         coverLetter
+    }
+    if (resume) {
+        userData.resume = resume
     }
     const user = await User.create(userData);
     return sendToken(user);
@@ -53,7 +56,7 @@ const login = async (body) => {
     return sendToken(user);
 }
 
-module.exports = { 
+module.exports = {
     register,
-    login 
+    login
 }

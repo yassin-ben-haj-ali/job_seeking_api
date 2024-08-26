@@ -2,8 +2,8 @@ const Application = require("../models/applicationSchema");
 const Job = require("../models/jobSchema");
 const { BadRequestError, NotFoundError } = require("../utils/appErrors");
 
-const postApplication = async (body, JobId, JobSeekerId) => {
-    const { name, email, phone, address, resume,coverLetter  } = body;
+const postApplication = async (body, resume = null, JobId, JobSeekerId) => {
+    const { name, email, phone, address, coverLetter } = body;
     if (!name || !email || !phone || !address || !coverLetter) {
         throw new BadRequestError("All fields are required.")
     }
